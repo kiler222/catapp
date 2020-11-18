@@ -10,7 +10,8 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        val newIntent = Intent(this, LoginActivity::class.java)
+        //TODO change to LoginActivity
+        val newIntent = Intent(this, MainActivity::class.java)
         startActivity(newIntent)
         finish()
     }

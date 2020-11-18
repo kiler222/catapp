@@ -5,6 +5,6 @@ import com.kiler.catapp.data.api.ApiHelper
 class MainRepository(private val apiHelper: ApiHelper) {
 
     suspend fun getBreeds() = apiHelper.getBreeds()
-    suspend fun getImage() = apiHelper.getImage()
+    suspend fun getImage(breedID: String) = apiHelper.getImage(breedID)
 
 }
