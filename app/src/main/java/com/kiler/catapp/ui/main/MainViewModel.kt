@@ -6,14 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiler.catapp.data.api.RetrofitBuilder
 import com.kiler.catapp.data.model.Breed
-import com.kiler.catapp.data.repository.MainRepository
+//import com.kiler.catapp.data.repository.MainRepository
 
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 
-class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
 
     private val TAG = "PJMainViewModel"
+
 
     val downloadStatus: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
@@ -37,7 +39,7 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
             var result = emptyList<Breed>()
             try {
-                val response = RetrofitBuilder.apiService.getBreeds()
+                val response = RetrofitBuilder.catApi.getBreeds()
                 Log.e(TAG, "fetchBreeds, resp = ${response.isSuccessful}")
                 if (response.isSuccessful && response.body() != null) {
                     result = response.body()!!
@@ -104,7 +106,7 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
         var imgUrl = ""
 
         try {
-            val response = RetrofitBuilder.apiService.getImage(breedID)
+            val response = RetrofitBuilder.catApi.getImage(breedID)
 
             if (response.isSuccessful && response.body() != null) {
                 val result = response.body()!!

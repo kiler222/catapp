@@ -3,6 +3,8 @@ package com.kiler.catapp.data.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//retrofit singleton
+
 object RetrofitBuilder {
 
     private const val BASE_URL = "https://api.thecatapi.com/v1/"
@@ -13,9 +15,11 @@ object RetrofitBuilder {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    val catApi: CatApi = getRetrofit().create(CatApi::class.java)
 
+    val loginApi: LoginApi = getRetrofit().create(LoginApi::class.java)
 
-
-
-    val apiService: ApiService = getRetrofit().create(ApiService::class.java)
 }
+
+
+

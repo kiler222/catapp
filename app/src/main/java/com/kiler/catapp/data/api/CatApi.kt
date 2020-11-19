@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface ApiService {
+interface CatApi {
 
     @Headers("x-key-api: 4f83fa01-6032-4f0b-bd37-6f39fe5ba345")
     @GET("breeds")
@@ -18,6 +18,6 @@ interface ApiService {
     @GET("images/search")
     suspend fun getImage(@Query("breed_id") breedID: String): Response<List<BreedImage>>
 
-//
+
 
 }

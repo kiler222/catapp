@@ -5,26 +5,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.SearchView
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kiler.catapp.ui.main.MainViewModel
 import com.kiler.catapp.R.*
-import com.kiler.catapp.data.api.ApiHelper
-import com.kiler.catapp.data.api.RetrofitBuilder
 import com.kiler.catapp.data.model.Breed
 import com.kiler.catapp.data.model.BreedRecyclerAdapter
 import com.kiler.catapp.ui.base.TopSpacingDecoration
-import com.kiler.catapp.ui.base.ViewModelFactory
+import com.kiler.catapp.ui.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "PJMainCatActivity"
 
-    private lateinit var viewModel: MainViewModel
+    @Inject lateinit var viewModel:  MainViewModel
     private lateinit var breedAdapter: BreedRecyclerAdapter
     private lateinit var breedOnView: List<Breed>
 
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(layout.activity_main)
         initRecyclerView()
         Log.e(TAG, "onCreate")
-        setupViewModel()
         setupObservers()
 
 
@@ -76,13 +73,6 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-    }
-
-    private fun setupViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-        ).get(MainViewModel::class.java)
     }
 
 
