@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.kiler.catapp.R
+import com.kiler.catapp.utils.LoginUtil
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -21,12 +22,12 @@ class LoginActivity : AppCompatActivity() {
 
             hideKeyboard()
 
-            //validation isn't implemented
-            val loginName = username.text.toString().takeUnless { it.isEmpty() }
-            val password = password.text.toString().takeUnless { it.isEmpty() }
+
+            val loginName = username.text.toString().takeUnless { it.isEmpty() } ?: ""
+            val password = password.text.toString().takeUnless { it.isEmpty() } ?: ""
 
 
-            if (loginName.isNullOrEmpty() || password.isNullOrEmpty()) {
+            if (!LoginUtil.validateLoginInput(loginName, password)) {
 
                 Toast.makeText(this, getString(R.string.fill_credentials), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
