@@ -10,8 +10,9 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        //TODO change to LoginActivity
-        val newIntent = Intent(this, MainActivity::class.java)
+        //there is no checking if user was logged before, so every time the app starts we navigate
+        //to the login screen
+        val newIntent = Intent(this, LoginActivity::class.java)
         startActivity(newIntent)
         finish()
     }

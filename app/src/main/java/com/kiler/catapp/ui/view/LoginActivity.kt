@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.kiler.catapp.R
@@ -17,15 +16,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
-
         loginButton.setOnClickListener {
 
             hideKeyboard()
 
-
             val loginName = username.text.toString().takeUnless { it.isEmpty() } ?: ""
             val password = password.text.toString().takeUnless { it.isEmpty() } ?: ""
 
+            //there is no special validation for username and password. I check only if is not empty
 
             if (!LoginUtil.validateLoginInput(loginName, password)) {
 
@@ -39,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
                 finish()
 
             }
-
         }
 
     }

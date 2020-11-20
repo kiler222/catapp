@@ -1,6 +1,5 @@
-package com.kiler.catapp.data.model
+package com.kiler.catapp.ui.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.kiler.catapp.R
+import com.kiler.catapp.data.model.Breed
 import kotlinx.android.synthetic.main.layout_card_item.view.*
 
 import kotlin.collections.ArrayList
@@ -43,7 +43,6 @@ class BreedRecyclerAdapter(private val listener: OnItemClickListener) : Recycler
 
 
     fun submitList(breedList: List<Breed>){
-
         items = breedList
         notifyDataSetChanged()
     }
@@ -61,7 +60,7 @@ class BreedRecyclerAdapter(private val listener: OnItemClickListener) : Recycler
             }
 
         override fun onClick(p0: View?) {
-            val pos = adapterPosition
+            val pos = absoluteAdapterPosition
             if (pos != RecyclerView.NO_POSITION) {
                 listener.onItemClick(pos)
             }
@@ -71,12 +70,13 @@ class BreedRecyclerAdapter(private val listener: OnItemClickListener) : Recycler
 
 
         fun bind(breed: Breed){
+
                 breedName.setText(breed.name)
                 breedDescription.setText(breed.description)
 
                 val requestOption = RequestOptions()
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.ic_img_placeholder)
+                    .error(R.drawable.ic_img_error)
                     .override(100, 100)
                     .format(DecodeFormat.PREFER_RGB_565)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -86,7 +86,7 @@ class BreedRecyclerAdapter(private val listener: OnItemClickListener) : Recycler
                 Glide.with(itemView.context)
                     .applyDefaultRequestOptions(requestOption)
                     .load(breed.image)
-                    .thumbnail(0.5f)
+                    .thumbnail(0.25f)
                     .into(breedImage)
 
 

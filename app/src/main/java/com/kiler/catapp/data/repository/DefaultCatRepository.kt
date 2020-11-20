@@ -1,6 +1,5 @@
 package com.kiler.catapp.data.repository
 
-import android.util.Log
 import com.kiler.catapp.data.api.CatApi
 import com.kiler.catapp.data.model.Breed
 import com.kiler.catapp.utils.Resource
@@ -13,6 +12,8 @@ import javax.inject.Singleton
 class DefaultCatRepository @Inject constructor(
     private val catApi: CatApi
 ) {
+
+    //return a complete list of breeds with images
     suspend fun myFetchBreeds(): Resource<List<Breed>> {
 
         return try {
@@ -20,10 +21,9 @@ class DefaultCatRepository @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {breeds->
 
-//                    var updatedBreeds: List<Breed>
-//                    updatedBreeds = breeds
                     var index = 0
 
+                    //once all breeds are fetched, then for each of them I request the url of the breed image
                     CoroutineScope(Dispatchers.IO).launch {
 
                         (0..breeds.size-1).map {
@@ -41,7 +41,6 @@ class DefaultCatRepository @Inject constructor(
 
                     }
 
-//                    Log.e("defcatrepository", "${breeds[3].name} i obrazek ${breeds[3].image}")
 
                     return@let Resource.success(breeds)
 

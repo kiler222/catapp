@@ -23,6 +23,7 @@
             android:padding="5dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/container1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,10 +32,9 @@
             android:id="@+id/container1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="@id/breed_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/breed_image"
@@ -44,7 +44,7 @@
                 android:id="@+id/breed_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Breed name"
+                android:text="@string/name"
                 android:textColor="#000"
                 android:textSize="19sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Lorem ipsum breed descr..."
+                android:text="@string/description"
                 android:textSize="15sp" />
 
 

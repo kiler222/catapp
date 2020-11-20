@@ -1,15 +1,14 @@
 <resources>
     <string name="app_name">CatApp</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="password">"Enter password"</string>
-    <string name="username">"Your username"</string>
+    <string name="wiki">https://pl.wikipedia.org/wiki/Cat</string>
+    <string name="name">Wild cat</string>
+    <string name="code">ES</string>
+    <string name="temperament">Friendly, nice, and lovely lorem ipsum dolor</string>
+    <string name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </string>
+    <string name="password">Enter password</string>
+    <string name="username">Your username</string>
     <string name="fill_credentials">Please enter your username and password.</string>
+    <string name="login">LOGIN</string>
 </resources>

@@ -7,8 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Breed(
-   // val imageUrl: String,
-
     val description: String,
     @SerializedName("origin")
     val country: String,

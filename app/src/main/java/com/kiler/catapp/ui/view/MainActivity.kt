@@ -6,21 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.SearchView
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kiler.catapp.R.*
 import com.kiler.catapp.data.model.Breed
-import com.kiler.catapp.data.model.BreedRecyclerAdapter
 import com.kiler.catapp.ui.base.TopSpacingDecoration
-import com.kiler.catapp.ui.main.CatViewModel
-//import com.kiler.catapp.ui.main.CatViewModel
-//import com.kiler.catapp.ui.main.MainViewModel
+import com.kiler.catapp.model.CatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
@@ -30,6 +24,7 @@ class MainActivity : AppCompatActivity(), BreedRecyclerAdapter.OnItemClickListen
     private lateinit var catViewModel: CatViewModel
     private lateinit var breedAdapter: BreedRecyclerAdapter
     private lateinit var breedOnView: List<Breed>
+    private var findBreeds: ArrayList<Breed> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +45,7 @@ class MainActivity : AppCompatActivity(), BreedRecyclerAdapter.OnItemClickListen
             override fun onQueryTextChange(newText: String): Boolean {
 
                 val userInput = newText.toLowerCase(Locale.ROOT)
-                val findBreeds  = ArrayList<Breed>()
-
+                findBreeds.clear()
                 breedOnView.forEach{
 
                     if (it.country.toLowerCase(Locale.ROOT).contains(userInput))
@@ -61,14 +55,10 @@ class MainActivity : AppCompatActivity(), BreedRecyclerAdapter.OnItemClickListen
                 breedAdapter.submitList(findBreeds)
 
                 return true
-
             }
-
         })
 
-
     }
-
 
 
     private fun initRecyclerView(){
@@ -78,44 +68,37 @@ class MainActivity : AppCompatActivity(), BreedRecyclerAdapter.OnItemClickListen
             addItemDecoration(topSpacingDecorator)
             breedAdapter = BreedRecyclerAdapter(this@MainActivity)
             adapter = breedAdapter
-
-
         }
     }
 
     override fun onItemClick(position: Int) {
-//        Log.e(TAG, "Klikniety $position kot. ${breedOnView[position].country}")
-//        Toast.makeText(this, "Klikniety $position kot. ${breedOnView[position].country}", Toast.LENGTH_SHORT).show()
+
+        val breed: Breed
+
+        if (findBreeds.isNullOrEmpty()) breed = breedOnView[position] else breed = findBreeds[position]
 
         val intent = Intent(this, DetailActivity::class.java)
-
-
-        intent.putExtra("temperament", breedOnView[position].temperament)
-        intent.putExtra("wikipediaUrl", breedOnView[position].wikipediaUrl)
-        intent.putExtra("code", breedOnView[position].code)
-        intent.putExtra("image", breedOnView[position].image)
-        intent.putExtra("name", breedOnView[position].name)
-        intent.putExtra("description", breedOnView[position].description)
-
+        intent.putExtra("temperament", breed.temperament)
+        intent.putExtra("wikipediaUrl", breed.wikipediaUrl)
+        intent.putExtra("code", breed.code)
+        intent.putExtra("image", breed.image)
+        intent.putExtra("name", breed.name)
+        intent.putExtra("description", breed.description)
 
         startActivity(intent)
-
 
     }
 
 
-
     private fun setupCatObservers() {
-        Log.e(TAG, "przed breedObserver")
 
         catViewModel.mutableLiveBreeds.observe(this){
 
-            Log.e(TAG, "breedObserverMutable")
             progressBar.visibility = View.GONE
             breedAdapter.submitList(it)
             breedOnView = it
-        }
 
+        }
     }
 
 
