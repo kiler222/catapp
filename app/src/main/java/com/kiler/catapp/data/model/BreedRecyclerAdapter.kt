@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_card_item.view.*
 
 import kotlin.collections.ArrayList
 
-class BreedRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BreedRecyclerAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<Breed> = ArrayList()
 
@@ -41,21 +41,36 @@ class BreedRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
 
+
     fun submitList(breedList: List<Breed>){
 
         items = breedList
         notifyDataSetChanged()
     }
 
-    class BreedViewHolder constructor(
+    inner class BreedViewHolder constructor(
         itemView: View
-    ): RecyclerView.ViewHolder(itemView) {
+    ): RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
             val breedImage = itemView.breed_image
             val breedName = itemView.breed_name
             val breedDescription = itemView.breed_description
 
-            fun bind(breed: Breed){
+            init {
+                itemView.setOnClickListener(this)
+            }
+
+        override fun onClick(p0: View?) {
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                listener.onItemClick(pos)
+            }
+
+        }
+
+
+
+        fun bind(breed: Breed){
                 breedName.setText(breed.name)
                 breedDescription.setText(breed.description)
 
@@ -78,5 +93,8 @@ class BreedRecyclerAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
 
 }

@@ -17,7 +17,7 @@ object RetrofitBuilder {
     }
     val catApi: CatApi = getRetrofit().create(CatApi::class.java)
 
-    val loginApi: LoginApi = getRetrofit().create(LoginApi::class.java)
+//    val loginApi: LoginApi = getRetrofit().create(LoginApi::class.java)
 
 }
 
