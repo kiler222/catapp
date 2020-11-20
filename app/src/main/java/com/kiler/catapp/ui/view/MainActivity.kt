@@ -84,12 +84,18 @@ class MainActivity : AppCompatActivity(), BreedRecyclerAdapter.OnItemClickListen
     }
 
     override fun onItemClick(position: Int) {
-        Log.e(TAG, "Klikniety $position kot. ${breedOnView[position].country}")
+//        Log.e(TAG, "Klikniety $position kot. ${breedOnView[position].country}")
 //        Toast.makeText(this, "Klikniety $position kot. ${breedOnView[position].country}", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, DetailActivity::class.java)
 
-        intent.putExtra("position", position)
+
+        intent.putExtra("temperament", breedOnView[position].temperament)
+        intent.putExtra("wikipediaUrl", breedOnView[position].wikipediaUrl)
+        intent.putExtra("code", breedOnView[position].code)
+        intent.putExtra("image", breedOnView[position].image)
+        intent.putExtra("name", breedOnView[position].name)
+        intent.putExtra("description", breedOnView[position].description)
 
 
         startActivity(intent)

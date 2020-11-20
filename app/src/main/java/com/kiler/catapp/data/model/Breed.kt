@@ -14,7 +14,7 @@ data class Breed(
     val country: String,
     val name: String,
     val id: String,
-    val image: String,
+    var image: String,
     @SerializedName("country_code")
     val code: String,
     val temperament: String,

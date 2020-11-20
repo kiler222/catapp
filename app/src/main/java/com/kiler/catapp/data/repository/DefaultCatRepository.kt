@@ -20,7 +20,8 @@ class DefaultCatRepository @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {breeds->
 
-
+//                    var updatedBreeds: List<Breed>
+//                    updatedBreeds = breeds
                     var index = 0
 
                     CoroutineScope(Dispatchers.IO).launch {
@@ -40,7 +41,7 @@ class DefaultCatRepository @Inject constructor(
 
                     }
 
-                    Log.e("defcatrepository", "${breeds[3].name} i obrazek ${breeds[3].image}")
+//                    Log.e("defcatrepository", "${breeds[3].name} i obrazek ${breeds[3].image}")
 
                     return@let Resource.success(breeds)
 
