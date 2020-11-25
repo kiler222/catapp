@@ -1,32 +1,38 @@
 package com.kiler.catapp.model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.kiler.catapp.data.model.Breed
+import com.kiler.catapp.data.model.BreedImage
+import com.kiler.catapp.data.model.BreedsList
 import com.kiler.catapp.data.repository.DefaultCatRepository
-import kotlinx.coroutines.launch
+import io.reactivex.Observable
 
 
 class CatViewModel @ViewModelInject constructor(private val repository: DefaultCatRepository) : ViewModel() {
 
+    private val TAG = "PJviewModel"
 
-    //a list of breeds as a livedata
-    val mutableLiveBreeds: MutableLiveData<List<Breed>> by lazy {
-        MutableLiveData<List<Breed>>()
+    fun getBreeds(): Observable<BreedsList> {
+        return repository.getBreeds()
+            .map {
+                BreedsList(it, "Data OK")
+            }
+            .onErrorReturn {
+                Log.e(TAG,"An error occurred $it")
+                BreedsList(emptyList(), "An error occurred", it)
+            }
     }
 
-
-    fun fetchBreeds() {
-
-        viewModelScope.launch {
-
-            //fetch a complete list of breeds and present it in livedata
-            val response = repository.myFetchBreeds()
-            mutableLiveBreeds.postValue(response.data)
-
-        }
+    fun getImage(breedID: String): Observable<BreedImage> {
+        return repository.getImage(breedID)
+            .map {
+                BreedImage(it[0].url)
+            }
+            .onErrorReturn {
+                Log.e(TAG,"An error occurred $it")
+                BreedImage("")
+            }
     }
 
 }
